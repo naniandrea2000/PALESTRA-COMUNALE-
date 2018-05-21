@@ -25,19 +25,6 @@ public class nodo implements Serializable
 		
 	}
 	/**
-	 * Classe che ci consente di creare un nuovo nodo nella nostra lista
-	 * 
-	 * @param p è un oggetto di tipo Prenotazione
-	 * @param link è un oggetto di tipo nodo
-	 * @return nodo è un nodo istanziato nel metodo
-	 */
-	private nodo creaNodo(Prenotazione p, nodo link)
-	{
-		nodo nodo= new nodo(p);
-		nodo.setLink(link);
-		return nodo;
-	}
-	/**
 	 * Metodo di tipo getter che restituisce la componente informativa del nodo, ossia una Prenotazione
 	 * @return info che rappresenta un oggetto Prenotazione
 	 */

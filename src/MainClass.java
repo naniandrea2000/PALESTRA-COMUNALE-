@@ -21,6 +21,7 @@ public class MainClass {
 		Menu m1=new Menu("PRENOTAZIONI",elenco);
 		String nomeFile = "prenotazioni.bin";
 		
+		
 		try 
 		{
 			p1=p1.caricaLista("prenotazioni.bin");
@@ -41,6 +42,15 @@ public class MainClass {
 				
 				System.out.println("Inserisci codice identificativo: ");
 				p.setCodiceIdentificativo(tastiera.ReadInt());
+				do 
+				{
+					if (p.getCodiceIdentificativo()<=0)
+					{
+					System.out.println("codice inserito errato..Reinserire");
+					System.out.println("Inserisci codice identificativo: ");
+					p.setCodiceIdentificativo(tastiera.ReadInt());
+					}
+				}while(p.getCodiceIdentificativo()<=0);
 				System.out.println("Inserisci il tuo cognome: ");
 				p.setCognome(tastiera.ReadString());
 				System.out.println("Inserisci il tuo nome: ");
@@ -58,12 +68,21 @@ public class MainClass {
 				p.setDatainizio((oraAttuale));
 				System.out.println("Inserisci le ore di utilizzo del campo= ");
 				p.setTempoutilizzo(tastiera.ReadInt());
+				do 
+				{
+					if (p.getTempoutilizzo()<=0)
+					{
+					System.out.println("tempo inserito errato..Reinserire");
+					System.out.println("Inserisci le ore di utilizzo del campo= ");
+					p.setTempoutilizzo(tastiera.ReadInt());
+					}
+				}while(p.getTempoutilizzo()<=0);
 				
 				
 			} 
 			catch (NumberFormatException e1) 
 			{
-				System.out.println("formato inserito errato..REINSERIRE I DATI");
+				System.out.println("formato inserito errato..RIPROVARE L'OPERAZIONE");
 				break;
 			} 
 			catch (IOException e1)
@@ -73,12 +92,13 @@ public class MainClass {
 			}
 			catch (DateTimeException e1)
 			{
-				System.out.println("data inserita errata..REINSERIRE");
+				System.out.println("data inserita errata..RIPROVARE L'OPERAZIONE");
 				break;
 			}
 			try 
 			{
 				p1.registraPrenotazione(p);
+				System.out.println("prenotazione effettuata");
 			}
 			catch (partitaException e1) 
 			{
@@ -99,18 +119,36 @@ public class MainClass {
 
 			break;
 		case 2:
+			if (p1.getElementi()==0)
+			{
+				System.out.println("Nessuna prenotazione presente");
+				break;
+
+			}
 			int c=0;
-			
 			try 
 			{
 				System.out.println("inserisci il codice della prenotazione che desideri eliminare: ");
 				c=tastiera.ReadInt();
-			} catch (NumberFormatException e4) 
+				do 
+				{
+					if (c<=0)
+					{
+					System.out.println("codice inserito errato..Reinserire");
+					System.out.println("inserisci il codice della prenotazione che desideri eliminare: ");
+					c=tastiera.ReadInt();
+					}
+				}while(c<=0);
+			} 
+			catch (NumberFormatException e4) 
 			{
-				System.out.println("Formato inserito non corretto");
-			} catch (IOException e4) 
+				System.out.println("formato inserito errato..RIPROVARE L'OPERAZIONE");
+				break;
+			} 
+			catch (IOException e4) 
 			{
 				System.out.println("impossibile leggere dati");
+				break;
 			}
 			try 
 			{
@@ -118,7 +156,7 @@ public class MainClass {
 			} 
 			catch (NumberFormatException e1) 
 			{
-				System.out.println("formato inserito errato..REINSERIRE I DATI");
+				System.out.println("formato inserito errato..RIPROVARE L'OPERAZIONE");
 				break;
 			} 
 			catch (partitaException e1) 
@@ -134,24 +172,41 @@ public class MainClass {
 			catch (IOException e1) 
 			{
 				System.out.println("impossibile scrivere dati di input");
+				break;
 			}
 			break;
 			
 		case 3:
+			if (p1.getElementi()==0)
+			{
+				System.out.println("Nessuna prenotazione presente");
+				break;
+
+			}
 			int codice=0;
-			
 			try 
 			{
 				System.out.println("inserisci il codice della tua prenotazione: ");
 				codice=tastiera.ReadInt();
+				do 
+				{
+					if (codice<=0)
+					{
+					System.out.println("codice inserito errato..Reinserire");
+					System.out.println("inserisci il codice della prenotazione che desideri eliminare: ");
+					codice=tastiera.ReadInt();
+					}
+				}while(codice<=0);
 			} 
 			catch (NumberFormatException e3) 
 			{
-				System.out.println("formato inserito errato..REINSERIRE I DATI");
+				System.out.println("formato inserito errato..RIPROVARE L'OPERAZIONE");
+				break;
 			} 
 			catch (IOException e3) 
 			{
 				System.out.println("impossibile leggere dati");
+				break;
 			}
 			
 			try 
@@ -180,9 +235,16 @@ public class MainClass {
 			catch (IOException e1) 
 			{
 				System.out.println("impossibile scrivere dati di input");
+				break;
 			}
 			break;
 		case 4:
+			if (p1.getElementi()==0)
+			{
+				System.out.println("Nessuna prenotazione presente");
+				break;
+
+			}
 			try {
 				Prenotazione[] p2=new Prenotazione[p1.getElementi()];
 				p2=p1.selectionSortCrescenteNome(p1);
@@ -200,7 +262,12 @@ public class MainClass {
 			
 				break;
 		case 5:
-			
+			if (p1.getElementi()==0)
+			{
+				System.out.println("Nessuna prenotazione presente");
+				break;
+
+			}
 			try {
 				Prenotazione[] p2=new Prenotazione[p1.getElementi()];
 				p2=p1.selectionSortCrescenteData(p1);
@@ -220,45 +287,68 @@ public class MainClass {
 			
 				break;
 		case 6:
+			if (p1.getElementi()==0)
+			{
+				System.out.println("Nessuna prenotazione presente");
+				break;
+			}
 			int tariffacampo=0;
 			int tariffadoccia=0;
-			int codice1=0;
-			
 			try 
 			{
-				System.out.println("inserisci il codice della prenotazione per modificare le tariffe: ");
-				codice1=tastiera.ReadInt();
+				
 				System.out.println("Inserire tariffa campo: ");
 				tariffacampo=tastiera.ReadInt();
+				do 
+				{
+					if (tariffacampo<=0)
+					{
+					System.out.println("numero inserito errato..Reinserire");
+					System.out.println("Inserire tariffa campo: ");
+					tariffacampo=tastiera.ReadInt();
+					}
+				}while(tariffacampo<=0);
+				
 				System.out.println("Inserire tariffa docce: ");
 				tariffadoccia=tastiera.ReadInt();
+				do 
+				{
+					if (tariffadoccia<=0)
+					{
+					System.out.println("numero inserito errato..Reinserire");
+					System.out.println("Inserire tariffa docce: ");
+					tariffadoccia=tastiera.ReadInt();
+					}
+				}while(tariffadoccia<=0);
 			} 
 			catch (NumberFormatException e2) 
 			{
-				System.out.println("formato inserito errato..REINSERIRE I DATI");
+				System.out.println("formato inserito errato..RIPROVARE L'OPERAZIONE");
+				break;
 			} 
 			catch (IOException e2) 
 			{
 				System.out.println("impossibile leggere dati");
+				break;
 			}
 			
 			try 
 			{
-				p1.modificaTariffePalestra(tariffacampo,tariffadoccia,codice1);
+				p1.modificaTariffePalestra(tariffacampo,tariffadoccia);
 			} 
 			catch (NumberFormatException e) 
 			{
 				System.out.println("formato inserito errato..REINSERIRE I DATI");
 				break;
 			} 
-			catch (partitaException e) 
+			break;
+
+		case 7:	
+			if (p1.getElementi()==0)
 			{
-				System.out.println(e.toString());
+				System.out.println("Palestra libera in tutte le date");
 				break;
 			}
-			break;
-		case 7:	
-			
 					int mese1=0;
 					int giorno1=0;
 					int ora1=0;
@@ -277,13 +367,20 @@ public class MainClass {
 			}
 			catch (NumberFormatException e1) 
 			{
-				System.out.println("formato inserito errato..REINSERIRE I DATI");
+				System.out.println("formato inserito errato..RIPROVARE L'OPERAZIONE");
+				break;
 			} 
 			catch (IOException e1) 
 			{
 				System.out.println("impossibile leggere dati");
+				break;
+				
 			}
-					
+			catch (DateTimeException e1)
+			{
+				System.out.println("data inserita errata..RIPROVARE L'OPERAZIONE");
+				break;
+			}	
 			try
 			{
 				

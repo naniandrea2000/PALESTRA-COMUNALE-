@@ -22,8 +22,8 @@ public class Prenotazione implements Serializable
 	private String nome;
 	private LocalDateTime datainizio;
 	private int tempoutilizzo;
-	private int tariffaore=30;
-	private int tariffadocce=5;
+	private static int tariffaore=30;
+	private static int tariffadocce=5;
 	
 	/**
 	 * Costruttore della classe Prenotazione. Instanzia una nuova Prenotazione.
@@ -157,7 +157,7 @@ public class Prenotazione implements Serializable
 	 * Metodo di tipo getter che restituisce la tariffa del campo attribuita a una prenotazione
 	 * @return tariffaore che rappresenta la tariffa del campo attribuita a una  prenotazione
 	 */
-	public int getTariffaore() 
+	public static int getTariffaore() 
 	{
 		return tariffaore;
 	}
@@ -165,15 +165,15 @@ public class Prenotazione implements Serializable
 	 * Metodo di tipo setter che permette di settare la tariffa del campo da attribuire a una prenotazione
 	 * @return tariffaore che rappresenta la tariffa del campo da attribuire a una  prenotazione
 	 */
-	public void setTariffaore(int tariffaore) 
+	public static void setTariffaore(int tariffaore1) 
 	{
-		this.tariffaore = tariffaore;
+		tariffaore = tariffaore1;
 	}
 	/**
 	 * Metodo di tipo getter che restituisce la tariffa delle docce attribuita a una prenotazione
 	 * @return tariffadocce che rappresenta la tariffa delle docce attribuita a una  prenotazione
 	 */
-	public int getTariffadocce()
+	public static int getTariffadocce()
 	{
 		return tariffadocce;
 	}
@@ -181,9 +181,9 @@ public class Prenotazione implements Serializable
 	 * Metodo di tipo setter che permette di settare la tariffa delle docce da attribuire a una prenotazione
 	 * @return tariffadocce che rappresenta la tariffa delle docce da attribuire a una  prenotazione
 	 */
-	public void setTariffadocce(int tariffadocce) 
+	public static void setTariffadocce(int tariffadocce1) 
 	{
-		this.tariffadocce = tariffadocce;
+		tariffadocce = tariffadocce1;
 	}
 	/**
 	 * Metodo toString che restituisce una stringa composta

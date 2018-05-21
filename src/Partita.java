@@ -329,7 +329,6 @@ public class Partita implements Serializable
 				}
 			}
 			this.inserisciInCoda(p);
-			System.out.println("prenotazione effetuata");
 			return;
 		}
 	}
@@ -337,14 +336,10 @@ public class Partita implements Serializable
 	 * Metodo che permette di elimanre una prenotazione dalla lista
 	 * @param p rappresenta la prenotazione che si vuole eliminare alla lista
 	 * @param c rappresenta il codice della prenotazione che si vuole eliminare
-	 * @throws partitaException eccezione che si verifica quando la lista è vuota o il codice non è relativo a nessuna prenotazione
+	 * @throws partitaException eccezione che si verifica quando il codice non è relativo a nessuna prenotazione
 	 */
 	public void EliminaPrenotazione(Partita p,int c) throws partitaException 
 	{
-		if (elementi==0)
-		{
-			throw new partitaException("Nessuna prenotazione presente");
-		}
 		
 		for (int i = 1; i <= p.getElementi(); i++) 
 		{
@@ -374,16 +369,12 @@ public class Partita implements Serializable
 	 * il prezzo ed eliminando la prenotazione dalla lista inserndo il prezzo in un file di testo
 	 * @param p rappresenta la prenotazione della quale si desidera registrare la fine della prenotazione
 	 * @param codice rappresenta il codice della prenotazione della quale si desidera registrare la fine della prenotazione
-	 * @throws partitaException eccezione che si verifica quando la lista è vuota o il codice non è relativo a nessuna prenotazione
+	 * @throws partitaException eccezione che si verifica quando il codice non è relativo a nessuna prenotazione
 	 * @throws IOException eccezione che si verifica per errori nella scrittura del file
 	 * @throws FileException eccezione che si verifica quando si verifica un errore nel salvataggio della stringa nel file
 	 */
 	public void finePartita(Partita p,int codice) throws  IOException, partitaException, FileException
 	{
-		if (elementi==0)
-		{
-			throw new partitaException("Nessuna prenotazione presente");
-		}
 		
 		Textfile file=new Textfile("pagamento.txt",'W');
 		Prenotazione[] arrayp;
@@ -394,7 +385,7 @@ public class Partita implements Serializable
 			if(arrayp[i].getCodiceIdentificativo()==codice)
 			{
 				System.out.println("il prezzo è: "+p.calcolaPrezzo(arrayp[i])+"€");
-				file.tofile("Nome="+arrayp[i].getNome()+" Cognome="+arrayp[i].getCognome()+" ora inizio="+arrayp[i].getDatainizio().getHour()+":"+arrayp[i].getDatainizio().getMinute()+'\t'+"data inizio= "+arrayp[i].getDatainizio().getDayOfMonth()+"/"+arrayp[i].getDatainizio().getMonthValue()+"/2018"+" ora fine= "+arrayp[i].getDatainizio().plusHours(arrayp[i].getTempoutilizzo())+":"+arrayp[i].getDatainizio().getMinute()+"  "+"data fine= "+arrayp[i].getDatainizio().getDayOfMonth()+"/"+arrayp[i].getDatainizio().getMonthValue()+"/2018"+ " PAGAMENTO EFFETTUATO");
+				file.tofile("Nome="+arrayp[i].getNome()+" Cognome="+arrayp[i].getCognome()+" ora inizio="+arrayp[i].getDatainizio().getHour()+":"+arrayp[i].getDatainizio().getMinute()+'\t'+"data inizio= "+arrayp[i].getDatainizio().getDayOfMonth()+"/"+arrayp[i].getDatainizio().getMonthValue()+"/2018"+" ora fine= "+arrayp[i].getDatainizio().plusHours(arrayp[i].getTempoutilizzo())+":"+arrayp[i].getDatainizio().getMinute()+"  "+"data fine= "+arrayp[i].getDatainizio().getDayOfMonth()+"/"+arrayp[i].getDatainizio().getMonthValue()+"/2018"+"  prezzo="+p.calcolaPrezzo(arrayp[i])+" PAGAMENTO EFFETTUATO");
 				file.closFile();
 				System.out.println("scritture effettuata correttamente");
 			}
@@ -457,13 +448,11 @@ public class Partita implements Serializable
 	 * Metodo che permette di ordinare un array in ordine crescente in base alla data
 	 * @param p rappresenta la lista(ovvero la partita)che si desidera ordinare
 	 * @return arrayordinato è l'array ordinato in base alla data
+	 * @throws partitaException eccezione che si verifica quando la lista è vuota
 	 */
-	public  Prenotazione[] selectionSortCrescenteData(Partita p) throws partitaException
+	public  Prenotazione[] selectionSortCrescenteData(Partita p) throws partitaException 
 	{
-		if (elementi==0)
-		{
-			throw new partitaException("Nessuna prenotazione presente");
-		}
+	
 		Prenotazione[] array;
 		array=p.arrayprenotazioni();
 		Prenotazione[] arrayOrdinato=copia(array);
@@ -482,14 +471,10 @@ public class Partita implements Serializable
 	 * Metodo che permette di ordinare un array in ordine crescente in base al nome
 	 * @param p rappresenta la lista(ovvero la partita)che si desidera ordinare
 	 * @return arrayordinato è l'array ordinato in base al nome
-	 * * @throws partitaException eccezione che si verifica quando la lista è vuota
+	 * @throws partitaException eccezione che si verifica quando la lista è vuota
 	 */
 	public Prenotazione[] selectionSortCrescenteNome(Partita p) throws partitaException
 	{
-		if (elementi==0)
-		{
-			throw new partitaException("Nessuna prenotazione presente");
-		}
 		Prenotazione[] array;
 		array=p.arrayprenotazioni();
 		Prenotazione[] arrayOrdinato=copia(array);
@@ -511,25 +496,13 @@ public class Partita implements Serializable
 	 * @param tariffacampo è il nuovo valore della tariffa del campo da attribuire alla prenotazione
 	 * @param tariffadoccia è il nuovo valore della tariffa delle docce da attribuire alla prenotazione
 	 * @param codice rappresenta il codice della prenotazione della quale si desidera modificare le tariffe
-	 * @throws partitaException eccezione che si verifica quando la lista è vuota o il codice non è relativo a nessuna prenotazione
 	 */
-	public void modificaTariffePalestra(int tariffacampo,int tariffadoccia,int codice) throws partitaException
+	public void modificaTariffePalestra(int tariffacampo,int tariffadoccia) 
 	{
-		if (elementi==0)
-		{
-			throw new partitaException("Nessuna prenotazione presente");
-		}
-		for (int i = 1; i <= this.getElementi(); i++) 
-		{
-			if (this.getInfo(i).getCodiceIdentificativo()==codice)
-			{
-				this.getInfo(i).setTariffaore(tariffacampo);
-				this.getInfo(i).setTariffadocce(tariffadoccia);
+				Prenotazione.setTariffaore(tariffacampo);
+				Prenotazione.setTariffadocce(tariffadoccia);
 				System.out.println("Modifica avvenuta con successo");
 				return;
-			}
-		}
-		throw new partitaException("nessuna prenotazione con questo codice identificativo");
 	}
 	/**
 	 * Metodo che permette di verificare la disponibilità di una palestra in una data
@@ -537,15 +510,10 @@ public class Partita implements Serializable
 	 * @param mese rappresenta il mese nel quale si vuole verificare la disponibilità
 	 * @param giorno rappresenta il giorno nel quale si vuole verificare la disponibilità
 	 * @param ora rappresenta l'ora nella quale si vuole verificare la disponibilità
-	 * @throws partitaException eccezione che si verifica quando la lista è vuota o è occupata oppure è libera
+	 * @throws partitaException eccezione che si verifica quando la palestra è occupata oppure è libera
 	 */
-	public void verificaDisponibilità(Partita p,int mese,int giorno,int ora,int minuti) throws partitaException
+	public void verificaDisponibilità(Partita p,int mese,int giorno,int ora,int minuti) throws partitaException 
 	{
-		
-		if (elementi==0)
-		{
-			throw new partitaException("Nessuna prenotazione presente,la palestra è libera");
-		}
 		
 		LocalDateTime d=LocalDateTime.of(2018, mese, giorno, ora, minuti);
 
@@ -560,7 +528,7 @@ public class Partita implements Serializable
 				throw new partitaException("ATTENZIONE PALESTRA OCCUPATA");
 			}
 		}
-		throw new partitaException("PALESTRA LIBERA");
+		System.out.println("PALESTRA LIBERA");
 	}
 	/**
 	 * Metodo che consente di salvare una lista di prenotazioni in un file binario
